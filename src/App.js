@@ -7,7 +7,7 @@ const outsideList = [
     url: 'https://reactjs.org/',
     author: 'Jordan Walke',
     num_comments: 3,
-    points: 4,
+    points: 7,
     objectID: 0,
   },
   {
