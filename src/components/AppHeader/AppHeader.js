@@ -5,7 +5,7 @@ const AppHeader = ({todo, done}) => {
     return (
         <div>
             <h1>my toDo list</h1>
-            <h2>{todo} more to do, {done} done</h2>
+            <h3>{todo} more to do, {done} done</h3>
         </div>
     )
 }
