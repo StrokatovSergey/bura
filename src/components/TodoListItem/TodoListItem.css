@@ -14,11 +14,18 @@
   user-select: none;
 }
 
-.todo-list-item.done .todo-list-item-label {
+/* .todo-list-item.done .todo-list-item-label {
+  text-decoration: line-through;
+} */
+.done {
   text-decoration: line-through;
 }
 
-.todo-list-item.important .todo-list-item-label {
+/* .todo-list-item.important .todo-list-item {
+  font-weight: bold;
+  color: steelblue;
+} */
+.important {
   font-weight: bold;
   color: steelblue;
 }

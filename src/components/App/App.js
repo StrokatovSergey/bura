@@ -26,7 +26,8 @@ const App = () => {
                 <ItemStatusFilter />
             </div>
 
-            <TodoList todoDataFromApp={todoData} />
+            <TodoList 
+            todoDataFromApp={todoData} />
         </div>
     )
 }
