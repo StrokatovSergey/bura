@@ -3,16 +3,15 @@ import React from 'react';
 import TodoListItem from '../TodoListItem/TodoListItem';
 import './TodoList.css';
 
-const TodoList = ({ todoDataFromApp, onDeleted}) => {
+const TodoList = ({ todoDataFromApp, whichTaskDelete }) => {
 
     const elements = todoDataFromApp.map(item => {
         return (
             <li className="list-group-item" key={item.id}>
-                <TodoListItem 
-                label={item.taskName} 
-                important={item.importantForItem}
-                onDeleted={()=>{console.log('deleted');
-                }}
+                <TodoListItem
+                    label={item.taskName}
+                    important={item.importantForItem}
+                    onDeleted={() => { whichTaskDelete(item.id) }}
                 /></li>
         )
     })

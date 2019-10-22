@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 
 import AppHeader from '../AppHeader/AppHeader';
@@ -9,27 +9,42 @@ import ItemStatusFilter from '../ItemStatusFilter/ItemStatusFilter';
 import './App.css';
 
 
-const App = () => {
+class App extends Component {
+    constructor(){
+        super()
+        this.state = {
+            todoData: [
+                { taskName: 'drink', importantForItem: false, id: 1 },
+                { taskName: 'eat', importantForItem: false, id: 2 },
+                { taskName: 'MAKE APP', importantForItem: true, id: 3 }
+            ]
+        };
+        this.deleteItem = (ItemIdDelete) => {
+            this.setState((state)=>{
+                const idX = state.todoData.findIndex((el) => el.id === ItemIdDelete);
+                console.log(idX);
+            })
+        }
+    }
 
 
-    const todoData = [
-        { taskName: 'drink', importantForItem: false, id: 1 },
-        { taskName: 'eat', importantForItem: false, id: 2 },
-        { taskName: 'MAKE APP', importantForItem: true, id: 3 }
-    ];
 
-    return (
-        <div className="todo-app">
-            <AppHeader toDo={1} done={3} />
-            <div className="top-panel d-flex">
-                <SearchPanel />
-                <ItemStatusFilter />
+    render() {
+
+        return (
+            <div className="todo-app">
+                <AppHeader toDo={1} done={3} />
+                <div className="top-panel d-flex">
+                    <SearchPanel />
+                    <ItemStatusFilter />
+                </div>
+
+                <TodoList
+                    todoDataFromApp={this.state.todoData}
+                    whichTaskDelete={this.deleteItem}
+                />
             </div>
-
-            <TodoList 
-            todoDataFromApp={todoData} />
-        </div>
-    )
+        )
+    }
 }
-
 export default App;

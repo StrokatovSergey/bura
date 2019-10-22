@@ -11,7 +11,7 @@ class TodoListItem extends Component {
         }
 
         this.onLabelClick = () => {
-            this.setState(({done})=> {
+            this.setState(({ done }) => {
                 return {
                     done: !done
                 }
@@ -26,13 +26,16 @@ class TodoListItem extends Component {
         }
     }
 
-    render() { 
+    render() {
 
         const { label, onDeleted } = this.props;
+        // const onDeleted = this.props.onDeleted;
         // const label = this.props.label;
-        // const important = this.props.important;
-        // const done = this.state.done;
+
+
         const { done, important } = this.state;
+        // const important = this.state.important;
+        // const done = this.state.done;
 
         let myClassNames = 'todo-list-item';
 
@@ -66,7 +69,7 @@ class TodoListItem extends Component {
                     className="btn btn-outline-danger btn-sm float-right"
                     // onClick={this.props.onDeleted}
                     onClick={onDeleted}
-                    >
+                >
                     <i className="fa fa-trash-o" />
                 </button>
             </span>
