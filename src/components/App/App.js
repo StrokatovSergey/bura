@@ -22,7 +22,10 @@ class App extends Component {
         this.deleteItem = (ItemIdDelete) => {
             this.setState((state)=>{
                 const idX = state.todoData.findIndex((el) => el.id === ItemIdDelete);
-                console.log(idX);
+                const newArr = [...state.todoData.slice(0, idX), ...state.todoData.slice(idX + 1)];
+                return {
+                    todoData: newArr
+                }
             })
         }
     }
