@@ -13,7 +13,7 @@ const TodoList = ({ todoDataFromApp, whichTaskDelete }) => {
                     important={item.importantForItem}
                     onDeleted={() => { whichTaskDelete(item.id) }}
                 /></li>
-        )
+        ) 
     })
 
     return (
@@ -27,3 +27,5 @@ const TodoList = ({ todoDataFromApp, whichTaskDelete }) => {
 
 
 export default TodoList
+
+
