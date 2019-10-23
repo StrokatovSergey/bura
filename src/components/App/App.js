@@ -11,9 +11,9 @@ import './App.css';
 
 
 class App extends Component {
-
     constructor(){
         super()
+        this.maxId = 100;
         this.state = {
             todoData: [
                 { taskName: 'drink', importantForItem: false, id: 1 },
@@ -23,7 +23,8 @@ class App extends Component {
         };
         this.AddOneId = () => {
             let lastId = this.state.todoData.length - 1;
-            console.log(this.state.todoData[lastId].id);
+            let newId = ++lastId;
+            console.log(newId);
             
         }
         this.deleteItem = (ItemIdDelete) => {
@@ -35,19 +36,20 @@ class App extends Component {
                 }
             })
         }
-        this.addOneTask = () => {
-            this.AddOneId()
+        this.addOneTask = (text) => {
+            // this.AddOneId();
+            const newItem = {
+                taskName: text, 
+                importantForItem: false,
+                id: this.maxId++
+            }
+            
             this.setState((state)=>{
-                const newitem = {
-                    taskName: 'drink', 
-                    importantForItem: false,
-                     id: 10
-                }
-                const newArr = [...state.todoData ,newitem];
+                const newArr = [...state.todoData, newItem];
                 return {
-                    todoData : newArr
+                    todoData: newArr
                 }
-            })
+            })   
         }
     }
 
@@ -67,7 +69,7 @@ class App extends Component {
                     todoDataFromApp={this.state.todoData}
                     whichTaskDelete={this.deleteItem}
                 />
-                <ItemAdd addTask={this.addOneTask}/>
+                <ItemAdd whichTaskAdd={this.addOneTask}/>
             </div>
         )
     }
