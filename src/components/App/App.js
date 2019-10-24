@@ -51,12 +51,17 @@ class App extends Component {
                 }
             })   
         }
+        this.toggleImportantMAIN = (id) =>{
+            console.log(`Important ${id}`);   
+        }
+        this.toggleDoneMAIN = (id) =>{
+            console.log(`Done ${id}`);
+        }
     }
 
 
 
     render() {
-
         return (
             <div className="todo-app">
                 <AppHeader toDo={1} done={3} />
@@ -68,6 +73,8 @@ class App extends Component {
                 <TodoList
                     todoDataFromApp={this.state.todoData}
                     whichTaskDelete={this.deleteItem}
+                    onToggleImportant={this.toggleImportantMAIN}
+                    onToggleDone={this.toggleDoneMAIN}
                 />
                 <ItemAdd whichTaskAdd={this.addOneTask}/>
             </div>

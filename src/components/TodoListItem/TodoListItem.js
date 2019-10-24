@@ -28,7 +28,7 @@ class TodoListItem extends Component {
 
     render() {
 
-        const { label, onDeleted } = this.props;
+        const { label, onDeleted, toggleImportantFromItem, toggleDoneFromItem } = this.props;
         // const onDeleted = this.props.onDeleted;
         // const label = this.props.label;
 
@@ -51,17 +51,19 @@ class TodoListItem extends Component {
         // };
 
         return (
-            <span className="todo-list-item">
+            <span className="todo-list-item-label">
                 <span
                     className={myClassNames}
-                    onClick={this.onLabelClick}
+                    onClick={toggleDoneFromItem}
                 >
                     {label}
                 </span>
 
                 <button type="button"
                     className="btn btn-outline-success btn-sm float-right"
-                    onClick={this.onMarkImportant}>
+                    onClick={toggleImportantFromItem}
+                    >
+                        
                     <i className="fa fa-exclamation" />
                 </button>
 
@@ -69,6 +71,8 @@ class TodoListItem extends Component {
                     className="btn btn-outline-danger btn-sm float-right"
                     // onClick={this.props.onDeleted}
                     onClick={onDeleted}
+
+
                 >
                     <i className="fa fa-trash-o" />
                 </button>
