@@ -51,6 +51,12 @@ class App extends Component {
                 }
             })   
         }
+        this.onToggleImportant = (id) =>{
+            console.log(`important ${id}`)
+        }
+        this.onToggleDone = (id) => {
+            console.log(`done ${id}`)
+        }        
     }
 
 
@@ -68,6 +74,8 @@ class App extends Component {
                 <TodoList
                     todoDataFromApp={this.state.todoData}
                     whichTaskDelete={this.deleteItem}
+                    whichTaskImportant={this.onToggleImportant}
+                    whichTaskDone={this.onToggleDone}
                 />
                 <ItemAdd whichTaskAdd={this.addOneTask}/>
             </div>

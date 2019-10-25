@@ -3,7 +3,8 @@ import React from 'react';
 import TodoListItem from '../TodoListItem/TodoListItem';
 import './TodoList.css';
 
-const TodoList = ({ todoDataFromApp, whichTaskDelete }) => {
+const TodoList = ({ todoDataFromApp, whichTaskDelete, 
+    whichTaskDone, whichTaskImportant }) => {
 
     const elements = todoDataFromApp.map(item => {
         return (
@@ -12,6 +13,8 @@ const TodoList = ({ todoDataFromApp, whichTaskDelete }) => {
                     label={item.taskName}
                     important={item.importantForItem}
                     onDeleted={() => { whichTaskDelete(item.id) }}
+                    whichTaskDoneFromItem={() => { whichTaskDone(item.id)}}
+                    whichTaskImportantFromItem={() => { whichTaskImportant(item.id) }}
                 /></li>
         ) 
     })

@@ -28,14 +28,10 @@ class TodoListItem extends Component {
 
     render() {
 
-        const { label, onDeleted } = this.props;
-        // const onDeleted = this.props.onDeleted;
-        // const label = this.props.label;
-
+        const { label, onDeleted,
+            whichTaskDoneFromItem, whichTaskImportantFromItem } = this.props;
 
         const { done, important } = this.state;
-        // const important = this.state.important;
-        // const done = this.state.done;
 
         let myClassNames = 'todo-list-item';
 
@@ -51,17 +47,17 @@ class TodoListItem extends Component {
         // };
 
         return (
-            <span className="todo-list-item">
+            <span className="todo-list-item-label">
                 <span
                     className={myClassNames}
-                    onClick={this.onLabelClick}
+                    onClick={whichTaskDoneFromItem}
                 >
                     {label}
                 </span>
 
                 <button type="button"
                     className="btn btn-outline-success btn-sm float-right"
-                    onClick={this.onMarkImportant}>
+                    onClick={whichTaskImportantFromItem}>
                     <i className="fa fa-exclamation" />
                 </button>
 
