@@ -1,5 +1,6 @@
 .todo-list-item {
   font-size: 1.25rem;
+  transition: color .2s , font-weight .2s;
 }
 
 .todo-list-item button {
@@ -27,5 +28,5 @@
 } */
 .important {
   font-weight: bold;
-  color: steelblue;
+  color: tomato;
 }

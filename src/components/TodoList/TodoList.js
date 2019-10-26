@@ -14,6 +14,8 @@ const TodoList = ({ todoDataFromApp, whichTaskDelete,
                     important={item.importantForItem}
                     onDeleted={() => { whichTaskDelete(item.id) }}
                     whichTaskDoneFromItem={() => { whichTaskDone(item.id)}}
+                    itemDone={item.done}
+                    itemImportant={item.importantForItem}
                     whichTaskImportantFromItem={() => { whichTaskImportant(item.id) }}
                 /></li>
         ) 

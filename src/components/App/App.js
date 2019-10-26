@@ -11,23 +11,28 @@ import './App.css';
 
 
 class App extends Component {
-    constructor(){
-        super()
-        this.maxId = 100;
-        this.state = {
+        idGen = 100;
+        state = {
             todoData: [
-                { taskName: 'drink', importantForItem: false, id: 1 },
-                { taskName: 'eat', importantForItem: false, id: 2 },
-                { taskName: 'MAKE APP', importantForItem: true, id: 3 }
+                this.createTodoItem('become react junior'),
+                this.createTodoItem('become react middle'),
+                this.createTodoItem('become react senior')
+            ],
+            initialData : [
+                this.createTodoItem('become react junior'),
+                this.createTodoItem('become react middle'),
+                this.createTodoItem('become react senior')
             ]
-        };
-        this.AddOneId = () => {
-            let lastId = this.state.todoData.length - 1;
-            let newId = ++lastId;
-            console.log(newId);
-            
         }
-        this.deleteItem = (ItemIdDelete) => {
+        createTodoItem(label){
+            return {
+                taskName: label, 
+                done: false, 
+                importantForItem: false, 
+                id: ++this.idGen
+            }
+        }
+        deleteItem = (ItemIdDelete) => {
             this.setState((state)=>{
                 const idX = state.todoData.findIndex((el) => el.id === ItemIdDelete);
                 const newArr = [...state.todoData.slice(0, idX), ...state.todoData.slice(idX + 1)];
@@ -36,14 +41,8 @@ class App extends Component {
                 }
             })
         }
-        this.addOneTask = (text) => {
-            // this.AddOneId();
-            const newItem = {
-                taskName: text, 
-                importantForItem: false,
-                id: this.maxId++
-            }
-            
+        addOneTask = (text) => {
+            const newItem = this.createTodoItem(text);
             this.setState((state)=>{
                 const newArr = [...state.todoData, newItem];
                 return {
@@ -51,23 +50,53 @@ class App extends Component {
                 }
             })   
         }
-        this.onToggleImportant = (id) =>{
-            console.log(`important ${id}`)
+        onToggleImportant = (idTaskImportant) => {
+            const ItemIndex = this.state.todoData.findIndex((el)=>el.id === idTaskImportant);
+            let newItem = this.state.todoData[ItemIndex];
+            newItem = { ...newItem, importantForItem: !newItem.importantForItem};
+            const newArr = [...this.state.todoData.slice(0, ItemIndex),newItem, 
+                ...this.state.todoData.slice(ItemIndex + 1)];
+            this.setState({
+                todoData: newArr
+            })
+            
         }
-        this.onToggleDone = (id) => {
-            console.log(`done ${id}`)
-        }        
-    }
 
+        onToggleDone = (idDoneTask) =>{
+            this.setState((state)=>{
+                const IdItem = state.todoData.findIndex((el) => el.id === idDoneTask);
+                const oldItem = state.todoData[IdItem];
+                const newItem = {...oldItem, done: !oldItem.done};
+                const newArr = [...state.todoData.slice(0, IdItem), newItem, ...state.todoData.slice(IdItem + 1)];
+                return{
+                    todoData: newArr
+                }
+            })
+        }
+        searchTask = (inputName) => {
+            if (inputName) {
+                let searchPoint = this.state.todoData.filter((el)=>el.taskName.includes(inputName));
+            this.setState({
+                todoData: searchPoint
+            })
+            } else if (!inputName) {
+                this.setState({
+                    todoData: this.state.initialData
+                })
+            }
 
-
+        }
+                
     render() {
-
+        const {todoData} = this.state;
+            const countTotalItems = todoData.filter((el)=>!el.done).length;
+            const countDoneItems = todoData.filter((el)=>el.done).length;
+            const countImportantItems = todoData.filter((el)=>el.importantForItem && !el.done).length;
         return (
             <div className="todo-app">
-                <AppHeader toDo={1} done={3} />
+                <AppHeader todo={countTotalItems} done={countDoneItems} important={countImportantItems} />
                 <div className="top-panel d-flex">
-                    <SearchPanel />
+                    <SearchPanel searchTask={this.searchTask}/>
                     <ItemStatusFilter />
                 </div>
 
@@ -81,5 +110,6 @@ class App extends Component {
             </div>
         )
     }
+
 }
-export default App;
+export default App;    
