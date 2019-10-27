@@ -3,16 +3,16 @@ import './SearchPanel.css';
 
 
 class SearchPanel extends Component {
-
-    inputSearch = (event) => {
-        this.props.searchTask(event.target.value)
+    searchInput = (event) =>{
+        this.props.searchInput(event.target.value);
     }
+
 
     render(){
         const SearchPanel = 'type here to search';
         return (
             <input
-                onChange={this.inputSearch}
+                onChange={this.searchInput}
                 className="form-control search-input"
                 type="text"
                 placeholder={SearchPanel} />

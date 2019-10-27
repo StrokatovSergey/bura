@@ -18,11 +18,7 @@ class App extends Component {
                 this.createTodoItem('become react middle'),
                 this.createTodoItem('become react senior')
             ],
-            initialData : [
-                this.createTodoItem('become react junior'),
-                this.createTodoItem('become react middle'),
-                this.createTodoItem('become react senior')
-            ]
+            term : ''
         }
         createTodoItem(label){
             return {
@@ -73,22 +69,20 @@ class App extends Component {
                 }
             })
         }
-        searchTask = (inputName) => {
-            if (inputName) {
-                let searchPoint = this.state.todoData.filter((el)=>el.taskName.includes(inputName));
-            this.setState({
-                todoData: searchPoint
-            })
-            } else if (!inputName) {
-                this.setState({
-                    todoData: this.state.initialData
-                })
+        searchTask(arrItems, searchText){
+            if (searchText.length === 0) {
+                return arrItems;
             }
-
+            return arrItems.filter((item)=>{
+                return item.taskName.toLowerCase()
+                .indexOf(searchText.toLowerCase()) > -1
+            })
         }
-                
+    
     render() {
-        const {todoData} = this.state;
+        const {todoData, term} = this.state;
+        const visibleItems = this.searchTask(todoData, term);
+
             const countTotalItems = todoData.filter((el)=>!el.done).length;
             const countDoneItems = todoData.filter((el)=>el.done).length;
             const countImportantItems = todoData.filter((el)=>el.importantForItem && !el.done).length;
@@ -96,12 +90,14 @@ class App extends Component {
             <div className="todo-app">
                 <AppHeader todo={countTotalItems} done={countDoneItems} important={countImportantItems} />
                 <div className="top-panel d-flex">
-                    <SearchPanel searchTask={this.searchTask}/>
+                    <SearchPanel 
+                    searchInput={(term)=>{this.setState({term})}}
+                    searchTask={this.searchTask}/>
                     <ItemStatusFilter />
                 </div>
 
                 <TodoList
-                    todoDataFromApp={this.state.todoData}
+                    todoDataFromApp={visibleItems}
                     whichTaskDelete={this.deleteItem}
                     whichTaskImportant={this.onToggleImportant}
                     whichTaskDone={this.onToggleDone}
