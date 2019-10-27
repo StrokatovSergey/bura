@@ -18,7 +18,8 @@ class App extends Component {
                 this.createTodoItem('become react middle'),
                 this.createTodoItem('become react senior')
             ],
-            term : ''
+            term : '',
+            filter : 'all'
         }
         createTodoItem(label){
             return {
@@ -78,10 +79,22 @@ class App extends Component {
                 .indexOf(searchText.toLowerCase()) > -1
             })
         }
-    
+        myFilter(items, filter){
+            switch (filter) {
+                case 'all': 
+                    return items;
+                case 'active':
+                    return items.filter((item)=>!item.done);
+                case 'done': 
+                    return items.filter((item)=>item.done);
+                default:
+                    return items;
+            }
+        }
+
     render() {
         const {todoData, term} = this.state;
-        const visibleItems = this.searchTask(todoData, term);
+        const visibleItems = this.myFilter(this.searchTask(todoData, term), this.state.filter);
 
             const countTotalItems = todoData.filter((el)=>!el.done).length;
             const countDoneItems = todoData.filter((el)=>el.done).length;
@@ -93,7 +106,10 @@ class App extends Component {
                     <SearchPanel 
                     searchInput={(term)=>{this.setState({term})}}
                     searchTask={this.searchTask}/>
-                    <ItemStatusFilter />
+                    <ItemStatusFilter  
+                    filter={this.state.filter}
+                    onFilterChange={(filter)=>{this.setState({filter})}}
+                    />
                 </div>
 
                 <TodoList
